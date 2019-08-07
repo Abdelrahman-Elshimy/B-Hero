@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 Future<bool> checkSeenStatus() async{
-  // SharedPreferences.setMockInitialValues({});
   SharedPreferences pref = await SharedPreferences.getInstance();
   bool seen = pref.getBool('seen');
   if(seen == null) {
