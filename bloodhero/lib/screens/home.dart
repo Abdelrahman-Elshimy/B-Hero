@@ -1,3 +1,4 @@
+import 'package:bloodhero/screens/verify_number.dart';
 import 'package:bloodhero/shared/shared_styles.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
           // create top section contain the image and color
@@ -115,20 +117,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width * .7,
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * .7,
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black12,
-                              width: 1,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Text(
-                          'Mobile Number',
-                          style: TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center,
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyNumber()));
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * .7,
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black12,
+                                width: 1,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Text(
+                            'Mobile Number',
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Positioned(
