@@ -1,6 +1,8 @@
+import 'package:bloodhero/app_localizations.dart';
 import 'package:bloodhero/shared/shared_styles.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyNumber extends StatefulWidget {
   @override
@@ -8,6 +10,21 @@ class VerifyNumber extends StatefulWidget {
 }
 
 class _VerifyNumberState extends State<VerifyNumber> {
+  String localLang;
+
+  Future checkLocalStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      localLang = prefs.getString('local');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkLocalStatus();
+  }
+
   BloodColors bloodColor = new BloodColors();
   int mobileNumber = 0;
   final _formKey = GlobalKey<FormState>();
@@ -21,25 +38,27 @@ class _VerifyNumberState extends State<VerifyNumber> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 60, left: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              padding: EdgeInsets.only(top: 60, left: 10, right: 10),
+
                 child: Container(
-                  child: Image.asset('assets/images/left-arrow (4).png'),
+                  // child: Image.asset('assets/images/left-arrow (4).png'),
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: bloodColor.mainColor, size: 30),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, top: 30),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Text(
-                'Verify Number',
+                AppLocalizations.of(context).translate('verifyTitle'),
                 style: SharedStyles().mainTitleStyle,
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 30, top: 20),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -59,7 +78,9 @@ class _VerifyNumberState extends State<VerifyNumber> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(right: 30),
+                      padding: (localLang != 'ar')
+                          ? EdgeInsets.only(right: 30)
+                          : EdgeInsets.only(right: 0),
                       child: Form(
                         key: _formKey,
                         child: Container(
@@ -72,8 +93,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     filled: true,
                                     fillColor: bloodColor.bGrey,
                                     contentPadding: EdgeInsets.only(
-                                        left: 20, top: 15, bottom: 15),
-                                    hintText: 'Entre your phone number',
+                                        left: 20,
+                                        top: 15,
+                                        bottom: 15,
+                                        right: 20),
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('inputPlaceholder'),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide(
@@ -107,11 +132,11 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Please enter your mobile number';
+                                      return AppLocalizations.of(context).translate('emptyPhoneField');
                                     }
                                     if (value.length > 11 ||
                                         value.length < 11) {
-                                      return 'Moblie number consist of 11 number';
+                                      return AppLocalizations.of(context).translate('maxOrMinNumbersInPhone');
                                     }
                                     return null;
                                   },
@@ -135,15 +160,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 if (_formKey.currentState.validate()) {
                   // Scaffold.of(context)
                   //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Your Mobile Number is 0' + mobileNumber.toString(),
-                      ),
-                      backgroundColor: bloodColor.mainColor,
-                      behavior: SnackBarBehavior.fixed,
-                    ),
-                  );
+
                   _formKey.currentState.save();
                 }
               },
@@ -157,7 +174,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'GET OTP',
+                    AppLocalizations.of(context).translate('getNumber'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,

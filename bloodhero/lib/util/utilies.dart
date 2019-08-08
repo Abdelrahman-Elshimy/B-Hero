@@ -12,3 +12,4 @@ void updateStatus() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   await pref.setBool('seen', true);
 }
+

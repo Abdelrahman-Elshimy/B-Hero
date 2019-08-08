@@ -6,6 +6,21 @@
 
     "titlePageTwo": "البحث عن متبرعين",
     "contentPageTwo":  "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ",
-    "getStarted": "أبدء الان"
+    "getStarted": "أبدء الان",
+
+    "homePage": "Home Page",
+
+    "homeTitle": "تسجيل الدخول",
+    "facebook": "الفيسبوك",
+    "google": "جوجل",
+    "mobileNumber": "رقم التليفون",
+
+    "verifyNumberPage": "التحقق",
+
+    "verifyTitle": "التحقق من رقم الهاتف",
+    "inputPlaceholder": "أدخل رقم الهاتف",
+    "getNumber": "ارسال رقم الهاتف",
+    "emptyPhoneField": "برجاء ادخال رقم الهاتف",
+    "maxOrMinNumbersInPhone": "رقم الهاتف يتكون من 11 رقم"
 
 }

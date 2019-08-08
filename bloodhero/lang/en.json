@@ -5,8 +5,22 @@
     "contentPageOne": "Lorem Ipsum is simply dummy text of the printing and typesetting",
     "titlePageTwo": "Search Blood Donor",
     "contentPageTwo": "Lorem Ipsum is simply dummy text of the printing and typesetting",
-    "getStarted": "GET STARTED"
+    "getStarted": "GET STARTED",
 
+    "homePage": "Home Page",
+
+    "homeTitle": "LOGIN & REGISTER",
+    "facebook": "Facebook",
+    "google": "Google",
+    "mobileNumber": "Mobile Number",
+
+    "verifyNumberPage": "Verify",
+
+    "verifyTitle": "Verify Number",
+    "inputPlaceholder": "Entre your phone number",
+    "getNumber": "SEND NUMBER",
+    "emptyPhoneField": "Please enter your mobile number",
+    "maxOrMinNumbersInPhone": "Moblie number consist of 11 number"
 
 
 

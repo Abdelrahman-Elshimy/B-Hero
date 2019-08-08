@@ -1,15 +1,17 @@
 // import 'package:bloodhero/screens/home.dart';
+import 'package:bloodhero/screens/home.dart';
 import 'package:bloodhero/screens/onBoarding.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodhero/util/utilies.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:bloodhero/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   bool _seen = await checkSeenStatus();
   Widget _home = OnBoardingPage();
   if (_seen) {
-    _home = OnBoardingPage();
+    _home = MyHomePage();
   }
   updateStatus();
   runApp(MyApp(_home));
@@ -31,11 +33,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-       // List all of the app's supported locales here
+      // List all of the app's supported locales here
       supportedLocales: [
         Locale('en', 'US'),
         Locale('ar', 'EG'),
       ],
+      
       // These delegates make sure that the localization data for the proper language is loaded
       localizationsDelegates: [
         // A class which loads the translations from JSON files
@@ -47,15 +50,11 @@ class _MyAppState extends State<MyApp> {
       ],
       // Returns a locale which will be used by the app
       localeResolutionCallback: (locale, supportedLocales) {
-
-         print(locale.languageCode);
-                print(locale.countryCode);
-        
         // Check if the current device locale is supported
         for (var supportedLocale in supportedLocales) {
           if (supportedLocale.languageCode == locale.languageCode &&
               supportedLocale.countryCode == locale.countryCode) {
-               
+            getLang(locale.languageCode);
             return supportedLocale;
           }
         }
@@ -65,5 +64,10 @@ class _MyAppState extends State<MyApp> {
       },
       home: widget._home,
     );
+  }
+
+  void getLang(String local) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('local', local);
   }
 }
