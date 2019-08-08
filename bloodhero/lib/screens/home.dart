@@ -3,6 +3,7 @@ import 'package:bloodhero/shared/shared_styles.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:bloodhero/app_localizations.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  child: Text('LOGIN & REGISTER',
+                  child: Text('LOGIN & Register',
                       style: SharedStyles().mainTitleStyle),
                 ),
                 SizedBox(
