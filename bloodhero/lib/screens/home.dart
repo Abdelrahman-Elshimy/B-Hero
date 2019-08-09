@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        left: 15,
+                        left: 30,
                         top: (localLang == 'ar') ? 17 : 15,
                         child: Container(
                           child: Icon(
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        left: 15,
+                        left: 30,
                         top: (localLang == 'ar') ? 18 : 17,
                         child: Container(
                           child: Icon(
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Positioned(
-                        left: 15,
+                        left: 30,
                         top: (localLang == 'ar') ? 19 : 17,
                         child: Container(
                           child: Icon(

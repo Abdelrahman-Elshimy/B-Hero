@@ -10,18 +10,20 @@ class VerifyNumber extends StatefulWidget {
 }
 
 class _VerifyNumberState extends State<VerifyNumber> {
-  String localLang;
+    String localLang;
 
   Future checkLocalStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       localLang = prefs.getString('local');
     });
+    print(localLang);
   }
 
   @override
   void initState() {
     super.initState();
+    
     checkLocalStatus();
   }
 
@@ -78,9 +80,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: (localLang != 'ar')
-                          ? EdgeInsets.only(right: 30)
-                          : EdgeInsets.only(right: 0),
+
                       child: Form(
                         key: _formKey,
                         child: Container(
@@ -94,7 +94,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                     fillColor: bloodColor.bGrey,
                                     contentPadding: EdgeInsets.only(
                                         left: 20,
-                                        top: 15,
+                                        top: (localLang == 'ar') ? 8 : 15,
                                         bottom: 15,
                                         right: 20),
                                     hintText: AppLocalizations.of(context)

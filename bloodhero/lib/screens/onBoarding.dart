@@ -4,6 +4,7 @@ import 'package:bloodhero/screens/home.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:bloodhero/util/shared-styles.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -11,6 +12,22 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
+  String localLang;
+
+  Future checkLocalStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      localLang = prefs.getString('local');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    checkLocalStatus();
+  }
+
   BloodColors _bloodColors = new BloodColors();
   SharedStyles _sharedStyles = new SharedStyles();
   int curentIndex = 0;
@@ -20,8 +37,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     List<Widget> list = [];
     for (int x = 0; x < 3; x++) {
       list.add(Container(
-        width: 7,
-        height: 7,
+        width: 6,
+        height: 6,
         margin: EdgeInsets.only(right: 5),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -33,7 +50,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     for (int i = 0; i < 3; i++) {
       list[curentIndex] = Container(
         width: 14,
-        height: 7,
+        height: 6,
         margin: EdgeInsets.only(right: 5),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(14)),
@@ -44,79 +61,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   // draw indicators
   Widget _drawIndicators() {
-    if (curentIndex != 2) {
-      return Positioned(
-        bottom: 10,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _drawIndicatorsMap(),
-          ),
+    return Positioned(
+      bottom: 20,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _drawIndicatorsMap(),
         ),
-      );
-    }
-    return Container();
+      ),
+    );
   }
-
-  // make shape
-  // Widget _shape(index) {
-  //   if (index != 2) {
-  //     return Container(
-  //       padding: EdgeInsets.only(top: 30),
-  //       height: MediaQuery.of(context).size.height * .34,
-  //       width: MediaQuery.of(context).size.width,
-  //       decoration: BoxDecoration(
-  //         borderRadius: (index == 0)
-  //             ? BorderRadius.only(topLeft: Radius.circular(100))
-  //             : BorderRadius.only(topLeft: Radius.circular(0)),
-  //         color: _bloodColors.mainColor,
-  //       ),
-  //       child: Align(
-  //         alignment: Alignment.center,
-  //         child: Container(
-  //           padding: EdgeInsets.only(left: 60, right: 60),
-  //           child: Center(
-  //             child: Column(
-  //               children: <Widget>[
-  //                 Text(walkPages[index].title,
-  //                     textAlign: TextAlign.center,
-  //                     style: _sharedStyles.onBoardingMainStyle()),
-  //                 SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 Text(
-  //                   walkPages[index].description,
-  //                   textAlign: TextAlign.center,
-  //                   style: _sharedStyles.onBoardingSubStyle(),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return Container(
-  //     margin: EdgeInsets.only(top: 20, bottom: 20, left: 20),
-  //     color: BloodColors().mainColor,
-  //     width: MediaQuery.of(context).size.width - 40,
-  //     child: Center(
-  //       child: FlatButton(
-  //         onPressed: () {
-  //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-  //             return MyHomePage();
-  //           }));
-  //         },
-  //         child: Text(
-  //           'GET STARTED',
-  //           style: TextStyle(
-  //               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -125,17 +80,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       new WalkThrougth(
         title: AppLocalizations.of(context).translate('titlePageOne'),
         image: 'assets/images/blood-transfusion (1).png',
-        description:
-            AppLocalizations.of(context).translate('contentPageOne'),
+        description: AppLocalizations.of(context).translate('contentPageOne'),
       ),
       new WalkThrougth(
         title: AppLocalizations.of(context).translate('titlePageTwo'),
         image: 'assets/images/blood-transfusion.png',
-        description:
-            AppLocalizations.of(context).translate('contentPageTwo'),
+        description: AppLocalizations.of(context).translate('contentPageTwo'),
       ),
       new WalkThrougth(
-          title: '', image: 'assets/images/blood-bag.png', description: ''),
+        title: AppLocalizations.of(context).translate('titlePageThree'),
+        image: 'assets/images/blood-bag.png',
+        description: AppLocalizations.of(context).translate('contentPageThree'),
+      ),
     ];
     return Scaffold(
       backgroundColor: Colors.white,
@@ -149,82 +105,109 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         itemBuilder: (context, index) {
           return Stack(
             children: <Widget>[
-              Transform.translate(
-                offset: Offset(0, -20),
-                child: Container(
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: ExactAssetImage(walkPages[index].image),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: (index != 2)
-                    ? Container(
-                        padding: EdgeInsets.only(top: 30),
-                        height: MediaQuery.of(context).size.height * .34,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: (index == 0)
-                              ? BorderRadius.only(topLeft: Radius.circular(100))
-                              : BorderRadius.only(topLeft: Radius.circular(0)),
-                          color: _bloodColors.mainColor,
-                        ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            padding: EdgeInsets.only(left: 60, right: 60),
-                            child: Center(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(walkPages[index].title,
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          _sharedStyles.onBoardingMainStyle()),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    walkPages[index].description,
-                                    textAlign: TextAlign.center,
-                                    style: _sharedStyles.onBoardingSubStyle(),
-                                  ),
-                                ],
+              Center(
+                child: Transform.translate(
+                  offset: Offset(0, -20),
+                  child: (index != 0)
+                      ? Container(
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              height: 210,
+                              width: 210,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xffCCCCCC)),
+                                shape: BoxShape.circle,
+                                color: Color(0xffF6F6F6),
+                                image: DecorationImage(
+                                  image:
+                                      ExactAssetImage(walkPages[index].image),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image:
+                                      ExactAssetImage(walkPages[index].image),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      )
-                    : Container(
-                        margin: EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
-                        color: BloodColors().mainColor,
-                        width: MediaQuery.of(context).size.width - 40,
+                ),
+              ),
+              Positioned(
+                  bottom: 0,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 30),
+                    height: MediaQuery.of(context).size.height * .34,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      // borderRadius: (index == 0)
+                      // ? (localLang != 'ar')
+                      //     ? BorderRadius.only(
+                      //         topLeft: Radius.circular(100))
+                      //     : BorderRadius.only(
+                      //         topRight: Radius.circular(100))
+                      // : BorderRadius.only(topLeft: Radius.circular(0)),
+                      color: _bloodColors.mainColor,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 60, right: 60),
                         child: Center(
-                          child: FlatButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return MyHomePage();
-                              }));
-                            },
-                            child: Text(
-                              AppLocalizations.of(context).translate('getStarted'),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(walkPages[index].title,
+                                  textAlign: TextAlign.center,
+                                  style: _sharedStyles.onBoardingMainStyle()),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                walkPages[index].description,
+                                textAlign: TextAlign.center,
+                                style: _sharedStyles.onBoardingSubStyle(),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-              ),
+                    ),
+                  )),
               _drawIndicators(),
+              (index == 2) ? Positioned(
+                right: (localLang != 'ar') ? 0 : 0,
+                bottom: 10,
+                child: Transform.translate(
+                  offset: Offset(20, 0),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: 20, right: 30, top: 10, bottom: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(40)),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                      },
+                      child: Text(
+                        AppLocalizations.of(context).translate('getStarted'),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                   
+                  ),
+                ),
+              ) : Container(),
             ],
           );
         },

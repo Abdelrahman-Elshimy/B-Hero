@@ -1,5 +1,4 @@
 // import 'package:bloodhero/screens/home.dart';
-import 'package:bloodhero/screens/home.dart';
 import 'package:bloodhero/screens/onBoarding.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodhero/util/utilies.dart';
@@ -11,7 +10,7 @@ void main() async {
   bool _seen = await checkSeenStatus();
   Widget _home = OnBoardingPage();
   if (_seen) {
-    _home = MyHomePage();
+    _home = OnBoardingPage();
   }
   updateStatus();
   runApp(MyApp(_home));
