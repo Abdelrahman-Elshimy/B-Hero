@@ -9,7 +9,7 @@
     "contentPageThree": "Lorem Ipsum is simply dummy text of the printing and typesetting",
     "getStarted": "FINISH",
 
-    "homePage": "Home Page",
+    "LoginAndRegister": "Home Page",
 
     "homeTitle": "LOGIN & REGISTER",
     "facebook": "Facebook",
@@ -22,7 +22,17 @@
     "inputPlaceholder": "Entre your phone number",
     "getNumber": "SEND NUMBER",
     "emptyPhoneField": "Please enter your mobile number",
-    "maxOrMinNumbersInPhone": "Moblie number consist of 11 number"
+    "maxOrMinNumbersInPhone": "Moblie number consist of 11 number",
+
+    "homePage": "Home Page",
+
+    "findDonor": "find donor",
+    "seeRequest": "see request",
+    "donors": "Donor's",
+    "request": "Request",
+    "explorFeed": "explore latest feed",
+    "postUpdate" : "Post Update"
+
 
 
 

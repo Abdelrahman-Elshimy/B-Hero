@@ -1,6 +1,6 @@
 import 'package:bloodhero/app_localizations.dart';
 import 'package:bloodhero/models/Walkthrought.dart';
-import 'package:bloodhero/screens/home.dart';
+import 'package:bloodhero/screens/login_register.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:bloodhero/util/shared-styles.dart';
 import 'package:flutter/material.dart';
@@ -150,13 +150,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     height: MediaQuery.of(context).size.height * .34,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      // borderRadius: (index == 0)
-                      // ? (localLang != 'ar')
-                      //     ? BorderRadius.only(
-                      //         topLeft: Radius.circular(100))
-                      //     : BorderRadius.only(
-                      //         topRight: Radius.circular(100))
-                      // : BorderRadius.only(topLeft: Radius.circular(0)),
                       color: _bloodColors.mainColor,
                     ),
                     child: Align(
@@ -184,30 +177,39 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     ),
                   )),
               _drawIndicators(),
-              (index == 2) ? Positioned(
-                right: (localLang != 'ar') ? 0 : 0,
-                bottom: 10,
-                child: Transform.translate(
-                  offset: Offset(20, 0),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: 20, right: 30, top: 10, bottom: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(40)),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
-                      },
-                      child: Text(
-                        AppLocalizations.of(context).translate('getStarted'),
-                        style: TextStyle(color: Colors.white),
+              (index == 2)
+                  ? Positioned(
+                      right: (localLang != 'ar') ? 0 : 0,
+                      bottom: 10,
+                      child: Transform.translate(
+                        offset: Offset(20, 0),
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 30, top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              bottomLeft: Radius.circular(40),
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginRegisterPage()));
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('getStarted'),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                   
-                  ),
-                ),
-              ) : Container(),
+                    )
+                  : Container(),
             ],
           );
         },

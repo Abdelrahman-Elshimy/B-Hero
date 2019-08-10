@@ -10,7 +10,7 @@
     "contentPageThree": "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ",
     "getStarted": "أبدء الان",
 
-    "homePage": "Home Page",
+    "LoginAndRegister": "Home Page",
 
     "homeTitle": "تسجيل الدخول",
     "facebook": "الفيسبوك",
@@ -23,6 +23,15 @@
     "inputPlaceholder": "أدخل رقم الهاتف",
     "getNumber": "ارسال رقم الهاتف",
     "emptyPhoneField": "برجاء ادخال رقم الهاتف",
-    "maxOrMinNumbersInPhone": "رقم الهاتف يتكون من 11 رقم"
+    "maxOrMinNumbersInPhone": "رقم الهاتف يتكون من 11 رقم",
+
+    "homePage": "Home Page",
+
+    "findDonor": "البحث عن متبرع",
+    "seeRequest": "شاهد الطلبات",
+    "donors": "المتبرعين",
+    "request": "الطلبات",
+    "explorFeed": "استكشف الاحدث",
+    "postUpdate" : "نشر حالة"
 
 }

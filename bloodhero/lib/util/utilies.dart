@@ -14,5 +14,14 @@ void updateStatus() async {
 }
 
 
+  Future<String> checkLocalStatus(String localLang) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      localLang = prefs.getString('local');
+      return localLang;
+  }
+
+  
+
+
 
 

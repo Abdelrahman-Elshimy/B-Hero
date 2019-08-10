@@ -1,5 +1,6 @@
 import 'package:bloodhero/app_localizations.dart';
 import 'package:bloodhero/shared/shared_styles.dart';
+import 'package:bloodhero/screens/home.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,25 +11,28 @@ class VerifyNumber extends StatefulWidget {
 }
 
 class _VerifyNumberState extends State<VerifyNumber> {
-    String localLang;
+
+  // get local language
+  String localLang;
 
   Future checkLocalStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       localLang = prefs.getString('local');
     });
-    print(localLang);
   }
 
   @override
   void initState() {
     super.initState();
-    
+
     checkLocalStatus();
   }
-
+  // get shared colors
   BloodColors bloodColor = new BloodColors();
+  // initialize mobile number of user
   int mobileNumber = 0;
+  // create form key 
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -39,19 +43,20 @@ class _VerifyNumberState extends State<VerifyNumber> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            // add arrow back icon 
             Container(
               padding: EdgeInsets.only(top: 60, left: 10, right: 10),
-
-                child: Container(
-                  // child: Image.asset('assets/images/left-arrow (4).png'),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: bloodColor.mainColor, size: 30),
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                  ),
+              child: Container(
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back,
+                      color: bloodColor.mainColor, size: 30),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
+              ),
             ),
+            // add verify number title
             Padding(
               padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Text(
@@ -59,6 +64,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 style: SharedStyles().mainTitleStyle,
               ),
             ),
+            // create form 
             Container(
               padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Row(
@@ -80,7 +86,6 @@ class _VerifyNumberState extends State<VerifyNumber> {
                   ),
                   Expanded(
                     child: Container(
-
                       child: Form(
                         key: _formKey,
                         child: Container(
@@ -132,11 +137,13 @@ class _VerifyNumberState extends State<VerifyNumber> {
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return AppLocalizations.of(context).translate('emptyPhoneField');
+                                      return AppLocalizations.of(context)
+                                          .translate('emptyPhoneField');
                                     }
                                     if (value.length > 11 ||
                                         value.length < 11) {
-                                      return AppLocalizations.of(context).translate('maxOrMinNumbersInPhone');
+                                      return AppLocalizations.of(context)
+                                          .translate('maxOrMinNumbersInPhone');
                                     }
                                     return null;
                                   },
@@ -155,13 +162,12 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 ],
               ),
             ),
+            // submit button 
             GestureDetector(
               onTap: () {
                 if (_formKey.currentState.validate()) {
-                  // Scaffold.of(context)
-                  //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-
                   _formKey.currentState.save();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
                 }
               },
               child: Container(
