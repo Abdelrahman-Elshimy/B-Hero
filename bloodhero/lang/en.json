@@ -31,7 +31,46 @@
     "donors": "Donor's",
     "request": "Request",
     "explorFeed": "explore latest feed",
-    "postUpdate" : "Post Update"
+    "postUpdate" : "Post Update",
+
+    "Donorspage": "DonorsPage",
+    
+    "donorsTitle": "Explore all donors",
+    "askHelp": "Ask For Help",
+    "lastDonation": "Last date of donation is 23 Jun 2019",
+
+    "Requestspage": "DonorsPage",
+    
+    "requestsTitle": "Explore all requests",
+    "requested": "Requested",
+    "newRequest": "New Request",
+    "addRequest": "Add Request",
+
+    "profile": "profile page",
+
+    "donated": "donated",
+    "requests": "requests",
+    "heroDonor": "hero donor",
+    "myAccount": "My account",
+    "myActivity": "my activity",
+    "more": "more",
+
+    "bedonorTitle": "Become Donor",
+    "donorName": "Name",
+    "donorEmail": "E-Mail",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "selectBloodGroup": "Select Blood Group",
+    "numberVisibleMessage": "Do you want to make your contact number visible for other",
+    "done": "Done",
+    "nameError": "Please enter you name",
+    "nameCount": "Name must be more than 6 charactars",
+    "emailError": "Please enter your email",
+
+    "addRequestTitle": "Request For Blood"
+
+
 
 
 

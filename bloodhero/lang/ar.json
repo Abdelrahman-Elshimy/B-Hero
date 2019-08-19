@@ -32,6 +32,43 @@
     "donors": "المتبرعين",
     "request": "الطلبات",
     "explorFeed": "استكشف الاحدث",
-    "postUpdate" : "نشر حالة"
+    "postUpdate" : "نشر حالة",
+
+    "Donors page": "DonorsPage",
+    
+    "donorsTitle": "كل المتبرعين",
+    "askHelp": "اطلب المساعدة",
+    "lastDonation": "اخر تاريخ للتبرع هو 23 يوليو 2019",
+
+    "Requestspage": "Requests Page",
+    
+    "requestsTitle": "كل الطلبات",
+    "requested": "تم الطلب",
+    "newRequest": "طلب جديد",
+    "addRequest": "اضافه طلب",
+
+    "profile": "profile page",
+    
+    "donated": "تبرع",
+    "requests": "طلب",
+    "heroDonor": "متبرع بطل",
+    "myAccount": "حسابي",
+    "myActivity": "نشاطاتي",
+    "more": "المزيد",
+
+    "bedonorTitle": "كن متبرعا",
+    "donorName": "الاسم",
+    "donorEmail": "الايميل",
+    "gender": "النوع",
+    "male": "ذكر",
+    "female": "انثي",
+    "selectBloodGroup": "اختار فصيله الدم",
+    "numberVisibleMessage": "هل تريد ان يكون رقمك ظاهر للاخرين",
+    "done": "تنفيذ",
+    "nameError": "رجاء ادخل اسمك",
+    "nameCount": "الاسم لا يجب ان يقل عن 6  احرف",
+    "emailError": "رجاء ادخل بريدك الالكتروني",
+
+    "addRequestTitle": "طلب دم"
 
 }

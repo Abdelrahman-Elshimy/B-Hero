@@ -1,4 +1,11 @@
 import 'package:bloodhero/app_localizations.dart';
+import 'package:bloodhero/screens/add_request.dart';
+import 'package:bloodhero/screens/be-donor.dart';
+import 'package:bloodhero/screens/donors.dart';
+import 'package:bloodhero/screens/profile.dart';
+import 'package:bloodhero/screens/requests.dart';
+import 'package:bloodhero/shared/middle-container.dart';
+import 'package:bloodhero/shared/post.dart';
 import 'package:bloodhero/util/blood-colors.dart';
 import 'package:bloodhero/shared/shared_styles.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  GlobalKey _drawerKey = GlobalKey();
   String localLang;
 
   Future checkLocalStatus() async {
@@ -25,6 +34,8 @@ class _HomePageState extends State<HomePage> {
 
     checkLocalStatus();
   }
+
+  
 
   BloodColors _bloodColors = new BloodColors();
   @override
@@ -42,17 +53,72 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        key: _drawerKey,
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                },
+                child: Container(
+                  color: _bloodColors.mainColor,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'My Profile',
+                    style: TextStyle(color: _bloodColors.bGrey, fontSize: 17),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => BeDonorPage()));
+                },
+                child: Container(
+                  color: _bloodColors.mainColor,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Be Donor',
+                    style: TextStyle(color: _bloodColors.bGrey, fontSize: 17),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddRequest()));
+                },
+                child: Container(
+                  color: _bloodColors.mainColor,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'New Request',
+                    style: TextStyle(color: _bloodColors.bGrey, fontSize: 17),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: ListView(
         children: <Widget>[
           // create donors container
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(15),
             color: _bloodColors.mainColor,
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding:
+                      EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
                   decoration: BoxDecoration(
                     color: _bloodColors.subMainColor,
                     borderRadius: BorderRadius.circular(10),
@@ -81,7 +147,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DonorsPage()));
+                          },
                           child: Align(
                             alignment: (localLang != 'ar')
                                 ? Alignment.centerRight
@@ -125,7 +196,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding:
+                      EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: _bloodColors.subMainColor,
@@ -154,7 +226,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RequestsPage()));
+                          },
                           child: Align(
                             alignment: (localLang != 'ar')
                                 ? Alignment.centerRight
@@ -188,353 +265,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)
-                        .translate('explorFeed')
-                        .toUpperCase(),
-                    style: SharedStyles().smallMainTitleStyle,
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: _bloodColors.mainColor,
-                            shape: BoxShape.circle),
-                        child: Text(
-                          '+',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      Container(
-                        child: Text(
-                          AppLocalizations.of(context).translate('postUpdate'),
-                          style: TextStyle(
-                            color: _bloodColors.mainColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          MiddleContainer(AppLocalizations.of(context).translate('explorFeed')),
           Divider(),
-          Container(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        ExactAssetImage('assets/images/Mask Group 42.png'),
-                  ),
-                  title: Row(
-                    children: <Widget>[
-                      Text(
-                        'Jym Ben',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                            color: Colors.blue, shape: BoxShape.circle),
-                        child: Icon(
-                          Icons.check,
-                          size: 10,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  subtitle: Row(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Image.asset('assets/images/clock.png'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            '6min ago',
-                            style: TextStyle(
-                              color: Colors.grey.withOpacity(.7),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Image.asset('assets/images/Group 1047.png'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Cairo',
-                            style: TextStyle(
-                              color: Colors.grey.withOpacity(.7),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image:
-                            ExactAssetImage('assets/images/Mask Group 44.png'),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: <Widget>[
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.favorite,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.share,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.add_comment,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                  child: Text(
-                    'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem',
-                    style: TextStyle(
-                      color: Color(0xffAAAAAA),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          PostCard(),
           Divider(),
-
-          Container(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        ExactAssetImage('assets/images/Mask Group 42.png'),
-                  ),
-                  title: Row(
-                    children: <Widget>[
-                      Text(
-                        'Jym Ben',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                            color: Colors.blue, shape: BoxShape.circle),
-                        child: Icon(
-                          Icons.check,
-                          size: 10,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  subtitle: Row(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Image.asset('assets/images/clock.png'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            '6min ago',
-                            style: TextStyle(
-                              color: Colors.grey.withOpacity(.7),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Image.asset('assets/images/Group 1047.png'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Cairo',
-                            style: TextStyle(
-                              color: Colors.grey.withOpacity(.7),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image:
-                            ExactAssetImage('assets/images/Mask Group 44.png'),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: <Widget>[
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.favorite,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.share,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffEEEEEE)),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.add_comment,
-                            color: Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                  child: Text(
-                    'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem',
-                    style: TextStyle(
-                      color: Color(0xffAAAAAA),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          PostCard(),
         ],
       ),
       // drawer: Drawer(),
